@@ -89,7 +89,7 @@ resource "google_artifact_registry_repository" "repo" {
       dynamic "docker_repository" {
         for_each = remote_repository_config.value.docker_repository[*]
         content {
-          public_repository = docker_repository.value.public_repository
+          public_repository = docker_repository.value.custom_repository == null ? docker_repository.value.public_repository : null
           dynamic "custom_repository" {
             for_each = docker_repository.value.custom_repository[*]
             content {
